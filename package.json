@@ -1,0 +1,28 @@
+{
+  "name": "mern-stack-integration-saidkumbo",
+  "version": "1.0.0",
+  "description": "This assignment focuses on building a full-stack MERN (MongoDB, Express.js, React.js, Node.js) application that demonstrates seamless integration between front-end and back-end components.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SAIDKUMBO/mern-stack-integration-SAIDKUMBO.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SAIDKUMBO/mern-stack-integration-SAIDKUMBO/issues"
+  },
+  "homepage": "https://github.com/SAIDKUMBO/mern-stack-integration-SAIDKUMBO#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.16"
+  }
+}
