@@ -1,0 +1,59 @@
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md 
+           hover:from-purple-600 hover:to-pink-600 hover:shadow-lg transform hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply btn border border-gray-300 text-gray-700 
+           hover:bg-gray-50 hover:text-gray-800;
+  }
+
+  .input {
+    @apply w-full p-3 border border-gray-300 rounded-lg 
+           focus:ring-2 focus:ring-purple-500 focus:border-transparent;
+  }
+
+  .label {
+    @apply block text-gray-700 font-semibold mb-2;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100;
+  }
+}
+
+/* Animation utilities */
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-in-out;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
