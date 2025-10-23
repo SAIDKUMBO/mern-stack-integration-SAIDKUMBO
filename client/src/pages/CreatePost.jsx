@@ -83,12 +83,34 @@ export default function CreatePost() {
         </div>
         <div className="space-y-2">
           <label htmlFor="image" className="block text-content-dark font-medium">Featured Image</label>
-          <input
-            id="image"
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-            className="w-full text-content-main file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
-          />
+          <div className="space-y-2">
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  if (file.size > 5 * 1024 * 1024) {
+                    toast.error('Image size should be less than 5MB');
+                    e.target.value = '';
+                    return;
+                  }
+                  setFile(file);
+                }
+              }}
+              className="w-full text-content-main file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
+            />
+            {file && (
+              <div className="mt-2">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="Preview"
+                  className="w-full max-w-md h-48 object-cover rounded-md"
+                />
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <button
