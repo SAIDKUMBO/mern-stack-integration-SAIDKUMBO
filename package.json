@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/SAIDKUMBO/mern-stack-integration-SAIDKUMBO#readme",
   "dependencies": {
+    "@clerk/clerk-react": "^5.53.3",
+    "@clerk/clerk-sdk-node": "^4.13.23",
     "bcryptjs": "^3.0.2",
     "multer": "^2.0.2"
   },

@@ -1,31 +1,42 @@
 import { useState } from 'react';
-import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '@clerk/clerk-react';
+import { toast } from 'react-hot-toast';
+import { postService } from '../services/api';
 
 export default function CreatePost() {
   const [form, setForm] = useState({ title: '', content: '', excerpt: '', category: '' });
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      toast.error('Please sign in to create a post');
+      return;
+    }
+
     setLoading(true);
     try {
       const fd = new FormData();
       fd.append('title', form.title);
       fd.append('content', form.content);
-      fd.append('excerpt', form.excerpt);
-      fd.append('category', form.category);
+      if (form.excerpt.trim()) fd.append('excerpt', form.excerpt);
+      if (form.category.trim()) fd.append('category', form.category);
+      fd.append('authorId', user.id);
+      fd.append('authorName', user.fullName || user.username);
       if (file) fd.append('featuredImage', file);
 
-      const res = await api.post('/posts', fd);
-      navigate(`/posts/${res.data.data._id}`);
+      const res = await postService.createPost(fd);
+      toast.success('Post created successfully!');
+      navigate(`/posts/${res.data._id}`);
     } catch (err) {
       console.error(err);
-      alert('Failed to create post');
+      toast.error(err.response?.data?.message || 'Failed to create post');
     } finally {
       setLoading(false);
     }
@@ -34,9 +45,12 @@ export default function CreatePost() {
   return (
     <div className="max-w-3xl mx-auto">
       <h2 className="text-2xl font-semibold mb-4 text-content-dark">Create New Post</h2>
+
       <form onSubmit={submit} className="bg-white p-6 rounded-xl shadow-md space-y-6">
         <div className="space-y-2">
-          <label htmlFor="title" className="block text-content-dark font-medium">Title</label>
+          <label htmlFor="title" className="block text-content-dark font-medium">
+            Title
+          </label>
           <input
             id="title"
             name="title"
@@ -47,8 +61,11 @@ export default function CreatePost() {
             required
           />
         </div>
+
         <div className="space-y-2">
-          <label htmlFor="excerpt" className="block text-content-dark font-medium">Excerpt</label>
+          <label htmlFor="excerpt" className="block text-content-dark font-medium">
+            Excerpt
+          </label>
           <input
             id="excerpt"
             name="excerpt"
@@ -58,8 +75,11 @@ export default function CreatePost() {
             className="w-full p-3 border border-brand-200 rounded-md text-content-main placeholder-content-muted focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
           />
         </div>
+
         <div className="space-y-2">
-          <label htmlFor="category" className="block text-content-dark font-medium">Category</label>
+          <label htmlFor="category" className="block text-content-dark font-medium">
+            Category
+          </label>
           <input
             id="category"
             name="category"
@@ -69,8 +89,11 @@ export default function CreatePost() {
             className="w-full p-3 border border-brand-200 rounded-md text-content-main placeholder-content-muted focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
           />
         </div>
+
         <div className="space-y-2">
-          <label htmlFor="content" className="block text-content-dark font-medium">Content</label>
+          <label htmlFor="content" className="block text-content-dark font-medium">
+            Content
+          </label>
           <textarea
             id="content"
             name="content"
@@ -81,8 +104,11 @@ export default function CreatePost() {
             required
           />
         </div>
+
         <div className="space-y-2">
-          <label htmlFor="image" className="block text-content-dark font-medium">Featured Image</label>
+          <label htmlFor="image" className="block text-content-dark font-medium">
+            Featured Image
+          </label>
           <div className="space-y-2">
             <input
               id="image"
@@ -101,6 +127,7 @@ export default function CreatePost() {
               }}
               className="w-full text-content-main file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
             />
+
             {file && (
               <div className="mt-2">
                 <img
@@ -112,6 +139,7 @@ export default function CreatePost() {
             )}
           </div>
         </div>
+
         <div className="flex items-center gap-4">
           <button
             type="submit"

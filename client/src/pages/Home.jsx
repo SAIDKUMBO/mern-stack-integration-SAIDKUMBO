@@ -14,12 +14,16 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true);
+    console.log('Fetching posts with params:', { page, limit: 6, search });
     api.get('/posts', { params: { page, limit: 6, search } })
       .then(res => {
+        console.log('API response:', res.data);
         setPosts(res.data.data || []);
         setMeta(res.data.meta || { page: 1, pages: 1 });
       })
-      .catch(() => {})
+      .catch(err => {
+        console.error('Error fetching posts:', err);
+      })
       .finally(() => setLoading(false));
   }, [page, search]);
 
@@ -31,6 +35,11 @@ export default function Home() {
 
       {loading ? (
         <div className="text-center py-16">Loading...</div>
+      ) : posts.length === 0 ? (
+        <div className="text-center py-16">
+          <h2 className="text-2xl font-semibold text-slate-800 mb-4">No posts found</h2>
+          <p className="text-slate-600">There are no blog posts yet. Be the first to create one!</p>
+        </div>
       ) : (
         <>
           <div className="grid gap-6 sm:grid-cols-2">

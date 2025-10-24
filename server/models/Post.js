@@ -28,14 +28,17 @@ const PostSchema = new mongoose.Schema(
       maxlength: [200, 'Excerpt cannot be more than 200 characters'],
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String, // Clerk user ID
+      required: true,
+    },
+    authorName: {
+      type: String,
       required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
-      required: true,
+      required: false,
     },
     tags: [String],
     isPublished: {

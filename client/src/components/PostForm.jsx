@@ -14,7 +14,7 @@ const schema = z.object({
     .max(200, 'Excerpt must be less than 200 characters')
     .optional(),
   category: z.string()
-    .min(1, 'Category is required'),
+    .optional(),
   tags: z.string()
     .transform(val => val.split(',').map(tag => tag.trim()).filter(Boolean))
     .optional(),

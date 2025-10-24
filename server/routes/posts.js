@@ -6,9 +6,13 @@ const postController = require('../controllers/posts');
 const multer = require('multer');
 const path = require('path');
 
-const uploadDir = process.env.UPLOAD_DIR || 'uploads';
+const uploadDir = path.join(__dirname, process.env.UPLOAD_DIR || 'uploads');
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, uploadDir),
+    destination: (req, file, cb) => {
+        // Ensure directory exists
+        require('fs').mkdirSync(uploadDir, { recursive: true });
+        cb(null, uploadDir);
+    },
     filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
     const base = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -38,7 +42,10 @@ router.post('/',
   upload.single('featuredImage'),
   body('title').notEmpty().withMessage('Title is required'),
   body('content').notEmpty().withMessage('Content is required'),
-  body('category').notEmpty().withMessage('Category is required'),
+  body('excerpt').optional().isLength({ max: 200 }).withMessage('Excerpt cannot be more than 200 characters'),
+  body('category').optional(),
+  body('authorId').notEmpty().withMessage('Author ID is required'),
+  body('authorName').notEmpty().withMessage('Author name is required'),
   validate,
   postController.createPost
 );

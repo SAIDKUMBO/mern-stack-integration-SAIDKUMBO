@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
     ? 'your-production-domain.com' // Change this to your actual production domain
-    : 'http://localhost:5174', // Vite's default port
+    : 'http://localhost:5173', // Vite's default port
   credentials: true
 }));
 app.use(express.json());
@@ -47,7 +47,8 @@ app.use('/api/auth', authRoutes);
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('MERN Blog API is running');
+  res.setHeader('Content-Type', 'text/html');
+  res.send('<!DOCTYPE html><html><head><title>MERN Blog API</title></head><body><h1>MERN Blog API is running</h1></body></html>');
 });
 
 // Error handling middleware

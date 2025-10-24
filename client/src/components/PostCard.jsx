@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 export default function PostCard({ post }) {
-  const imageUrl = post.featuredImage ? `${import.meta.env.VITE_API_URL?.replace('/api','') || ''}${post.featuredImage}` : null;
+  const imageUrl = post.featuredImage ? `${import.meta.env.VITE_API_URL?.replace('/api','') || 'http://localhost:5000'}${post.featuredImage}` : null;
 
   return (
     <article className="bg-white rounded-xl shadow-sm overflow-hidden border">

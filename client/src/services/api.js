@@ -4,11 +4,16 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api'
 });
 
-// Add request interceptor for auth token
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
+// ✅ Request interceptor for Clerk auth token - will be set dynamically
+api.interceptors.request.use(async (config) => {
+  try {
+    // This will be handled by the component using the API
+    // For now, we'll skip auth for development
+    return config;
+  } catch (error) {
+    console.error('Error getting token:', error);
+    return config;
+  }
 });
 
 // Auth service
@@ -41,7 +46,15 @@ export const postService = {
     return response.data;
   },
   createPost: async (postData) => {
-    const response = await api.post('/posts', postData);
+    const formData = new FormData();
+    Object.keys(postData).forEach((key) => {
+      formData.append(key, postData[key]);
+    });
+
+    const response = await api.post('/posts', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
     return response.data;
   },
   updatePost: async (id, postData) => {

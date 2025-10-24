@@ -59,7 +59,7 @@ export default function PostView() {
     );
   }
 
-  const imageUrl = post.featuredImage ? `${import.meta.env.VITE_API_URL?.replace('/api','') || ''}${post.featuredImage}` : null;
+  const imageUrl = post.featuredImage ? `${import.meta.env.VITE_API_URL?.replace('/api','') || 'http://localhost:5000'}${post.featuredImage}` : null;
   const createdAt = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true });
 
   return (

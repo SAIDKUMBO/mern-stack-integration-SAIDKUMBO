@@ -1,17 +1,10 @@
-// Auth middleware - verify JWT
-const jwt = require('jsonwebtoken');
+const { ClerkExpressRequireAuth } = require('@clerk/clerk-sdk-node');
 
-module.exports = (req, res, next) => {
-  const header = req.headers.authorization;
-  if (!header || !header.startsWith('Bearer ')) {
-    return res.status(401).json({ success: false, message: 'No token provided' });
+// Use Clerk's built-in middleware for authentication
+module.exports = ClerkExpressRequireAuth({
+  // Optional: Configure any specific options
+  onError: (err, req, res) => {
+    console.error('Clerk Auth Error:', err);
+    res.status(401).json({ success: false, message: 'Please authenticate' });
   }
-  const token = header.split(' ')[1];
-  try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = payload; // payload should contain { id, email, ... }
-    next();
-  } catch (err) {
-    return res.status(401).json({ success: false, message: 'Invalid token' });
-  }
-};
+});
