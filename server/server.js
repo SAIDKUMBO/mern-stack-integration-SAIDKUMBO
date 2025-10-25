@@ -21,8 +21,8 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'your-production-domain.com' // Change this to your actual production domain
+  origin: process.env.NODE_ENV === 'production'
+    ? ['https://mern-stack-integration-saidkumbo.vercel.app', 'http://localhost:5173']
     : 'http://localhost:5173', // Vite's default port
   credentials: true
 }));
