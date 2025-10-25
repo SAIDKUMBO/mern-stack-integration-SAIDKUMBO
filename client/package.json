@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.53.3",
     "@hookform/resolvers": "^3.10.0",
     "axios": "^1.7.0",
     "date-fns": "^4.1.0",
