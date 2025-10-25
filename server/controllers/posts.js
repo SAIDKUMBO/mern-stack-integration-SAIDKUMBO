@@ -76,7 +76,7 @@ exports.createPost = async (req, res, next) => {
 
     // ✅ Category now optional
     let cat = null;
-    if (category) {
+    if (category && category.trim() && category !== 'undefined') {
       cat = await Category.findById(category).catch(() => null);
     }
 
@@ -86,14 +86,16 @@ exports.createPost = async (req, res, next) => {
       author: authorId,
       authorName,
       tags: tags ? (Array.isArray(tags) ? tags : JSON.parse(tags)) : [],
-      isPublished: isPublished === 'true' || isPublished === true
+      isPublished: isPublished === 'true' || isPublished === true || false
     };
 
-    if (excerpt) postData.excerpt = excerpt;
-    if (category) postData.category = category;
+    if (excerpt && excerpt.trim()) postData.excerpt = excerpt;
+    if (category && category.trim() && category !== 'undefined') {
+      postData.category = category;
+    }
 
     if (req.file) {
-      postData.featuredImage = `/uploads/${req.file.filename}`;
+      postData.featuredImage = `/${process.env.UPLOAD_DIR || 'uploads'}/${req.file.filename}`;
     }
 
     const post = await Post.create(postData);

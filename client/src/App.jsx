@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp } from "@clerk/clerk-react";
+import { ThemeProvider } from './context/ThemeContext';
 import CreatePost from './pages/CreatePost';
 import PostView from './pages/PostView';
 import Home from './pages/Home';
@@ -9,7 +10,7 @@ import Header from './components/Header';
 
 export default function App() {
   return (
-      <div className="min-h-screen flex flex-col bg-content-light text-content-main">
+      <div className="min-h-screen flex flex-col bg-content-light dark:bg-gray-900 text-content-main dark:text-gray-100">
         <Header />
         <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
@@ -35,9 +36,9 @@ export default function App() {
                 </>
               }
             />
-            <Route 
-              path="/posts/:id" 
-              element={<PostView />} 
+            <Route
+              path="/posts/:id"
+              element={<PostView />}
             />
           </Routes>
         </main>

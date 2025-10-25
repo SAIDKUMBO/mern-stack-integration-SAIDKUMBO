@@ -6,7 +6,7 @@ const postController = require('../controllers/posts');
 const multer = require('multer');
 const path = require('path');
 
-const uploadDir = path.join(__dirname, process.env.UPLOAD_DIR || 'uploads');
+const uploadDir = path.join(__dirname, '..', process.env.UPLOAD_DIR || 'uploads');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // Ensure directory exists
@@ -20,6 +20,24 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage });
+
+// Custom validation function for category
+const validateCategory = (value) => {
+  // Allow empty string, undefined, or null
+  if (!value || value === '' || value === null) return true;
+  // If value exists, it should be a string
+  return typeof value === 'string';
+};
+
+// Middleware to handle form data and ensure category is optional
+const handleFormData = (req, res, next) => {
+  // Ensure category is not required if not provided
+  if (!req.body.category || req.body.category === '') {
+    delete req.body.category;
+  }
+  next();
+};
+
 
 // GET /api/posts
 router.get('/',
@@ -40,10 +58,11 @@ router.get('/:id',
 // POST /api/posts
 router.post('/',
   upload.single('featuredImage'),
+  handleFormData,
   body('title').notEmpty().withMessage('Title is required'),
   body('content').notEmpty().withMessage('Content is required'),
   body('excerpt').optional().isLength({ max: 200 }).withMessage('Excerpt cannot be more than 200 characters'),
-  body('category').optional(),
+  body('category').optional().custom(validateCategory).withMessage('Category must be a string'),
   body('authorId').notEmpty().withMessage('Author ID is required'),
   body('authorName').notEmpty().withMessage('Author name is required'),
   validate,

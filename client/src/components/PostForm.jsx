@@ -50,50 +50,50 @@ export default function PostForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div>
-        <label className="block text-gray-700 font-semibold mb-2">Title</label>
+        <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Title</label>
         <input
           type="text"
           {...register('title')}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
         />
         {errors.title && (
-          <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.title.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-gray-700 font-semibold mb-2">Content</label>
+        <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Content</label>
         <textarea
           {...register('content')}
           rows="6"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
         />
         {errors.content && (
-          <p className="mt-1 text-sm text-red-600">{errors.content.message}</p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.content.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-gray-700 font-semibold mb-2">Excerpt</label>
+        <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Excerpt</label>
         <input
           type="text"
           {...register('excerpt')}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
         />
         {errors.excerpt && (
-          <p className="mt-1 text-sm text-red-600">{errors.excerpt.message}</p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.excerpt.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-gray-700 font-semibold mb-2">
+        <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">
           Featured Image
         </label>
         <input
           type="file"
           accept="image/*"
           onChange={onImageChange}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 file:bg-gray-50 dark:file:bg-gray-600 file:border-0 file:rounded file:px-3 file:py-1 file:mr-3 file:text-gray-700 dark:file:text-gray-300"
         />
         {imagePreview && (
           <img
@@ -105,15 +105,15 @@ export default function PostForm({
       </div>
 
       <div>
-        <label className="block text-gray-700 font-semibold mb-2">Tags</label>
+        <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Tags</label>
         <input
           type="text"
           {...register('tags')}
           placeholder="Separate tags with commas"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
         />
         {errors.tags && (
-          <p className="mt-1 text-sm text-red-600">{errors.tags.message}</p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.tags.message}</p>
         )}
       </div>
 
@@ -121,16 +121,16 @@ export default function PostForm({
         <input
           type="checkbox"
           {...register('isPublished')}
-          className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+          className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700"
         />
-        <label className="ml-2 text-gray-700">Publish immediately</label>
+        <label className="ml-2 text-gray-700 dark:text-gray-300">Publish immediately</label>
       </div>
 
       <div className="flex justify-end gap-4">
         <button
           type="button"
           onClick={() => window.history.back()}
-          className="px-6 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+          className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
         >
           Cancel
         </button>

@@ -26,7 +26,6 @@ export default function CreatePost() {
       fd.append('title', form.title);
       fd.append('content', form.content);
       if (form.excerpt.trim()) fd.append('excerpt', form.excerpt);
-      if (form.category.trim()) fd.append('category', form.category);
       fd.append('authorId', user.id);
       fd.append('authorName', user.fullName || user.username);
       if (file) fd.append('featuredImage', file);
@@ -44,11 +43,11 @@ export default function CreatePost() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4 text-content-dark">Create New Post</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-content-dark dark:text-gray-100">Create New Post</h2>
 
-      <form onSubmit={submit} className="bg-white p-6 rounded-xl shadow-md space-y-6">
+      <form onSubmit={submit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md dark:shadow-lg space-y-6">
         <div className="space-y-2">
-          <label htmlFor="title" className="block text-content-dark font-medium">
+          <label htmlFor="title" className="block text-content-dark dark:text-gray-300 font-medium">
             Title
           </label>
           <input
@@ -57,13 +56,13 @@ export default function CreatePost() {
             value={form.title}
             onChange={handleChange}
             placeholder="Enter post title"
-            className="w-full p-3 border border-brand-200 rounded-md text-content-main placeholder-content-muted focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+            className="w-full p-3 border border-brand-200 dark:border-gray-600 rounded-md text-content-main dark:text-gray-100 placeholder-content-muted dark:placeholder-gray-400 bg-white dark:bg-gray-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="excerpt" className="block text-content-dark font-medium">
+          <label htmlFor="excerpt" className="block text-content-dark dark:text-gray-300 font-medium">
             Excerpt
           </label>
           <input
@@ -72,12 +71,12 @@ export default function CreatePost() {
             value={form.excerpt}
             onChange={handleChange}
             placeholder="Brief description of your post"
-            className="w-full p-3 border border-brand-200 rounded-md text-content-main placeholder-content-muted focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+            className="w-full p-3 border border-brand-200 dark:border-gray-600 rounded-md text-content-main dark:text-gray-100 placeholder-content-muted dark:placeholder-gray-400 bg-white dark:bg-gray-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="category" className="block text-content-dark font-medium">
+          <label htmlFor="category" className="block text-content-dark dark:text-gray-300 font-medium">
             Category
           </label>
           <input
@@ -86,12 +85,12 @@ export default function CreatePost() {
             value={form.category}
             onChange={handleChange}
             placeholder="Category ID (optional)"
-            className="w-full p-3 border border-brand-200 rounded-md text-content-main placeholder-content-muted focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+            className="w-full p-3 border border-brand-200 dark:border-gray-600 rounded-md text-content-main dark:text-gray-100 placeholder-content-muted dark:placeholder-gray-400 bg-white dark:bg-gray-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="content" className="block text-content-dark font-medium">
+          <label htmlFor="content" className="block text-content-dark dark:text-gray-300 font-medium">
             Content
           </label>
           <textarea
@@ -100,13 +99,13 @@ export default function CreatePost() {
             value={form.content}
             onChange={handleChange}
             placeholder="Write your post content here"
-            className="w-full p-3 border border-brand-200 rounded-md text-content-main placeholder-content-muted focus:border-brand-500 focus:ring-1 focus:ring-brand-500 h-40"
+            className="w-full p-3 border border-brand-200 dark:border-gray-600 rounded-md text-content-main dark:text-gray-100 placeholder-content-muted dark:placeholder-gray-400 bg-white dark:bg-gray-700 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 h-40"
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="image" className="block text-content-dark font-medium">
+          <label htmlFor="image" className="block text-content-dark dark:text-gray-300 font-medium">
             Featured Image
           </label>
           <div className="space-y-2">
@@ -125,7 +124,7 @@ export default function CreatePost() {
                   setFile(file);
                 }
               }}
-              className="w-full text-content-main file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100"
+              className="w-full text-content-main dark:text-gray-100 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-brand-50 dark:file:bg-gray-600 file:text-brand-700 dark:file:text-gray-300 hover:file:bg-brand-100 dark:hover:file:bg-gray-500"
             />
 
             {file && (

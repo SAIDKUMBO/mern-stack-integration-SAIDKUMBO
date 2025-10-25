@@ -30,15 +30,15 @@ export default function Home() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-slate-800">Recent Posts</h1>
+        <h1 className="text-3xl font-bold text-slate-800 dark:text-gray-100">Recent Posts</h1>
       </div>
 
       {loading ? (
-        <div className="text-center py-16">Loading...</div>
+        <div className="text-center py-16 text-gray-600 dark:text-gray-400">Loading...</div>
       ) : posts.length === 0 ? (
         <div className="text-center py-16">
-          <h2 className="text-2xl font-semibold text-slate-800 mb-4">No posts found</h2>
-          <p className="text-slate-600">There are no blog posts yet. Be the first to create one!</p>
+          <h2 className="text-2xl font-semibold text-slate-800 dark:text-gray-100 mb-4">No posts found</h2>
+          <p className="text-slate-600 dark:text-gray-400">There are no blog posts yet. Be the first to create one!</p>
         </div>
       ) : (
         <>
@@ -63,7 +63,7 @@ function Pagination({ meta, search }) {
         <a
           key={p}
           href={`/?page=${p}${search ? `&search=${encodeURIComponent(search)}` : ''}`}
-          className={`px-3 py-1 rounded-md ${p === meta.page ? 'bg-brand-600 text-white' : 'bg-white border'}`}
+          className={`px-3 py-1 rounded-md ${p === meta.page ? 'bg-brand-600 text-white' : 'bg-white dark:bg-gray-700 border dark:border-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-600'}`}
         >
           {p}
         </a>
