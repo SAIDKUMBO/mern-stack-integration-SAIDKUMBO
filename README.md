@@ -2,7 +2,7 @@
 
 A full-featured blogging platform built with the MERN stack (MongoDB, Express.js, React, Node.js) that demonstrates modern web development practices and seamless integration between front-end and back-end components.
 
-DEPLOYMENT LINK: https://mern-stack-integration-saidkumbo-bm0uk3nhl-saidkumbos-projects.vercel.app
+LIVE DEPLOYMENT LINK: https://mern-stack-integration-saidkumbo-git-main-saidkumbos-projects.vercel.app?_vercel_share=e5hJeyWrai0XkHXurNE2QfL7swXkJGFL
 
 ## ✨ Features
 
