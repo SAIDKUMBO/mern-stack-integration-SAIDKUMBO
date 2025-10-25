@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://mern-stack-integration-saidkumbo-3.onrender.com/api"
+  baseURL: "https://mern-stack-integration-saidkumbo-3.onrender.com/api",
+  withCredentials: true
 });
 
 // ✅ Request interceptor for Clerk auth token - will be set dynamically
