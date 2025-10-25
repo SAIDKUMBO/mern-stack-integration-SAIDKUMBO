@@ -52,7 +52,7 @@ A full-featured blogging platform built with the MERN stack (MongoDB, Express.js
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/SAIDKUMBO/mern-stack-integration-SAIDKUMBO.git
+git clone https://github.com/PLP-MERN-Stack-Development/mern-stack-integration-SAIDKUMBO.git
 cd mern-stack-integration-SAIDKUMBO
 ```
 
