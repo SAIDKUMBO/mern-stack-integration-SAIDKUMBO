@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
-import api from '../services/api';
+import api, { IMAGE_BASE_URL } from '../services/api';
 import CommentSection from '../components/CommentSection';
 
 export default function PostView() {
@@ -64,7 +64,7 @@ export default function PostView() {
     );
   }
 
-  const imageUrl = post.featuredImage ? `${import.meta.env.VITE_API_URL?.replace('/api','') || 'http://localhost:5000'}${post.featuredImage}` : null;
+  const imageUrl = post.featuredImage ? `${IMAGE_BASE_URL}${post.featuredImage}` : null;
   const createdAt = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true });
 
   return (

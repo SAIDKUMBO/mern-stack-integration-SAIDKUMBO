@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
+import { IMAGE_BASE_URL } from '../services/api';
 
 export default function PostCard({ post }) {
-  const imageUrl = post.featuredImage ? `${import.meta.env.VITE_API_URL?.replace('/api','') || 'http://localhost:5000'}${post.featuredImage}` : null;
+  const imageUrl = post.featuredImage ? `${IMAGE_BASE_URL}${post.featuredImage}` : null;
 
   return (
     <article className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-lg overflow-hidden border dark:border-gray-700">

@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://mern-stack-integration-saidkumbo-3.onrender.com/api",
-  withCredentials: true
+  baseURL: import.meta.env.VITE_API_URL || '/api'
 });
+
+// Base URL for images (remove /api suffix if present)
+export const IMAGE_BASE_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
 
 // ✅ Request interceptor for Clerk auth token - will be set dynamically
 api.interceptors.request.use(async (config) => {

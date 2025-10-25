@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { IMAGE_BASE_URL } from '../services/api';
 
 const schema = z.object({
   title: z.string()
@@ -26,7 +27,7 @@ export default function PostForm({
   onSubmit,
   loading = false 
 }) {
-  const [imagePreview, setImagePreview] = useState(initialData?.featuredImage);
+  const [imagePreview, setImagePreview] = useState(initialData?.featuredImage ? `${IMAGE_BASE_URL}${initialData.featuredImage}` : null);
   
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
