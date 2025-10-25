@@ -28,13 +28,25 @@ export default function CreatePost() {
       if (form.excerpt.trim()) fd.append('excerpt', form.excerpt);
       fd.append('authorId', user.id);
       fd.append('authorName', user.fullName || user.username);
+      fd.append('isPublished', form.isPublished ? 'true' : 'false');
       if (file) fd.append('featuredImage', file);
+
+      console.log('Submitting form data:', {
+        title: form.title,
+        content: form.content,
+        excerpt: form.excerpt,
+        authorId: user.id,
+        authorName: user.fullName || user.username,
+        isPublished: form.isPublished ? 'true' : 'false',
+        hasFile: !!file
+      });
 
       const res = await postService.createPost(fd);
       toast.success('Post created successfully!');
-      navigate(`/posts/${res.data._id}`);
+      navigate('/');
     } catch (err) {
-      console.error(err);
+      console.error('Create post error:', err);
+      console.error('Error response:', err.response?.data);
       toast.error(err.response?.data?.message || 'Failed to create post');
     } finally {
       setLoading(false);

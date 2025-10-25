@@ -36,15 +36,15 @@ export default function CommentSection({ postId, comments: initialComments = [] 
 
   return (
     <div className="space-y-6 mt-8">
-      <h3 className="text-lg font-semibold text-content-dark">Comments</h3>
-      
+      <h3 className="text-lg font-semibold text-content-dark dark:text-gray-100">Comments</h3>
+
       {user ? (
         <form onSubmit={handleSubmit} className="space-y-3">
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Add a comment..."
-            className="w-full p-3 border border-brand-200 rounded-md focus:ring-1 focus:ring-brand-500 focus:border-brand-500"
+            className="w-full p-3 border border-brand-200 dark:border-gray-600 rounded-md focus:ring-1 focus:ring-brand-500 focus:border-brand-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
             rows={3}
           />
           <button
@@ -56,32 +56,32 @@ export default function CommentSection({ postId, comments: initialComments = [] 
           </button>
         </form>
       ) : (
-        <p className="text-content-muted">
-          Please <a href="/login" className="text-brand-600 hover:text-brand-500">login</a> to comment
+        <p className="text-content-muted dark:text-gray-400">
+          Please <a href="/sign-in" className="text-brand-600 dark:text-brand-400 hover:text-brand-500 dark:hover:text-brand-300">login</a> to comment
         </p>
       )}
 
       <div className="space-y-4">
         {comments.map((comment) => (
-          <div key={comment._id} className="bg-white p-4 rounded-lg shadow-sm border border-brand-100">
+          <div key={comment._id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm dark:shadow-lg border border-brand-100 dark:border-gray-700">
             <div className="flex justify-between items-start">
               <div className="flex items-center space-x-3">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center">
-                    <span className="text-brand-700 font-medium">
-                      {comment.author.name[0].toUpperCase()}
+                  <div className="w-8 h-8 rounded-full bg-brand-100 dark:bg-gray-600 flex items-center justify-center">
+                    <span className="text-brand-700 dark:text-gray-300 font-medium">
+                      {comment.author?.name?.[0]?.toUpperCase() || '?'}
                     </span>
                   </div>
                 </div>
                 <div>
-                  <p className="text-content-dark font-medium">{comment.author.name}</p>
-                  <p className="text-content-muted text-sm">
+                  <p className="text-content-dark dark:text-gray-100 font-medium">{comment.author?.name || 'Anonymous'}</p>
+                  <p className="text-content-muted dark:text-gray-400 text-sm">
                     {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                   </p>
                 </div>
               </div>
             </div>
-            <p className="mt-2 text-content-main">{comment.content}</p>
+            <p className="mt-2 text-content-main dark:text-gray-100">{comment.content}</p>
           </div>
         ))}
       </div>

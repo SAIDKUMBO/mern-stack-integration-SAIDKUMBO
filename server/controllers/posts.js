@@ -86,7 +86,8 @@ exports.createPost = async (req, res, next) => {
       author: authorId,
       authorName,
       tags: tags ? (Array.isArray(tags) ? tags : JSON.parse(tags)) : [],
-      isPublished: isPublished === 'true' || isPublished === true || false
+      isPublished: isPublished === 'true' || isPublished === true || false,
+      slug: title.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-')
     };
 
     if (excerpt && excerpt.trim()) postData.excerpt = excerpt;

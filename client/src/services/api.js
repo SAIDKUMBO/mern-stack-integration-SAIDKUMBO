@@ -26,6 +26,10 @@ export const authService = {
     const response = await api.post('/auth/register', userData);
     return response.data;
   },
+  syncClerkUser: async (userData) => {
+    const response = await api.post('/auth/sync-clerk-user', userData);
+    return response.data;
+  },
   getCurrentUser: async () => {
     const response = await api.get('/auth/me');
     return response.data;
@@ -46,12 +50,8 @@ export const postService = {
     return response.data;
   },
   createPost: async (postData) => {
-    const formData = new FormData();
-    Object.keys(postData).forEach((key) => {
-      formData.append(key, postData[key]);
-    });
-
-    const response = await api.post('/posts', formData, {
+    console.log('API createPost called with:', postData);
+    const response = await api.post('/posts', postData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
 

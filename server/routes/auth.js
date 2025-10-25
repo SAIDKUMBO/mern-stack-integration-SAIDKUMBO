@@ -27,4 +27,7 @@ router.post(
   authController.login
 );
 
+// POST /api/auth/sync-clerk-user
+router.post('/sync-clerk-user', authController.syncClerkUser);
+
 module.exports = router;

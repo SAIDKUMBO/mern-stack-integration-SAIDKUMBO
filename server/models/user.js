@@ -4,6 +4,11 @@ const jwt = require('jsonwebtoken');
 
 const UserSchema = new mongoose.Schema(
   {
+    clerkId: {
+      type: String,
+      required: true,
+      unique: true
+    },
     name: {
       type: String,
       required: [true, 'Please provide a name']
@@ -18,7 +23,7 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Please provide a password'],
+      required: false, // Not required for Clerk users
       minlength: [6, 'Password must be at least 6 characters long'],
       select: false
     },
@@ -30,7 +35,12 @@ const UserSchema = new mongoose.Schema(
     avatar: {
       type: String,
       default: 'default-avatar.png'
-    }
+    },
+    firstName: String,
+    lastName: String,
+    username: String,
+    imageUrl: String,
+    lastSignInAt: Date
   },
   { 
     timestamps: true,

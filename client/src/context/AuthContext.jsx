@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
 import { authService } from '../services/api';
 import { toast } from 'react-hot-toast';
 
@@ -7,20 +8,41 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user: clerkUser, isLoaded } = useUser();
 
   useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (token) {
-        const { data } = await authService.getCurrentUser();
-        setUser(data.user);
+    if (isLoaded) {
+      if (clerkUser) {
+        syncClerkUserToDB();
+      } else {
+        setUser(null);
+        setLoading(false);
       }
+    }
+  }, [clerkUser, isLoaded]);
+
+  const syncClerkUserToDB = async () => {
+    try {
+      const userData = {
+        clerkId: clerkUser.id,
+        email: clerkUser.primaryEmailAddress?.emailAddress,
+        firstName: clerkUser.firstName,
+        lastName: clerkUser.lastName,
+        username: clerkUser.username,
+        imageUrl: clerkUser.imageUrl
+      };
+
+      const { data } = await authService.syncClerkUser(userData);
+      setUser(data.user);
     } catch (error) {
-      localStorage.removeItem('token');
+      console.error('Failed to sync user to database:', error);
+      // Still set basic user info from Clerk
+      setUser({
+        id: clerkUser.id,
+        name: clerkUser.fullName,
+        email: clerkUser.primaryEmailAddress?.emailAddress,
+        imageUrl: clerkUser.imageUrl
+      });
     } finally {
       setLoading(false);
     }
